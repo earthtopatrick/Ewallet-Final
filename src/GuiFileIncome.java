@@ -19,7 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class GuiFile extends JFrame implements ActionListener{ 
+public class GuiFileIncome extends JFrame implements ActionListener{ 
 	   private JScrollPane scrollPane;       // Container adds scroll bar
 	   private JTextArea outputArea;         // Holds file output
 	   private JLabel selectedFileLabel;     // Label for file name
@@ -28,18 +28,18 @@ public class GuiFile extends JFrame implements ActionListener{
 	   private JFileChooser fileChooser;     // Enables user to select file
 	   private JButton openFileButton;       // Trigger file open
 	   
-	   Expense arr[] ;//= new Expense[100];
-	   private static ArrayList<Expense> arrList = new ArrayList<Expense>();
+	   Income arr[] ;//= new Expense[100];
+	   private static ArrayList<Income> arrList = new ArrayList<Income>();
 	   
 	   /* Constructor creates GUI components and adds GUI components
 	      using a GridBagLayout. */
-	   GuiFile() {
+	   GuiFileIncome() {
 	      GridBagConstraints layoutConst = null; // GUI component layout
 
 	      // Set frame's title
-	      setTitle("Upload Expenses");
+	      setTitle("Upload Income");
 	      
-	      outputLabel = new JLabel("<html>Expenses<br>(Must be .txt file in form ExpenseType:Amount:MonthNumber)<br>(Start new line for each expense)</html>");
+	      outputLabel = new JLabel("<html>Income<br>(Must be .txt file in form IncomeType:Amount:MonthNumber)<br>(Start new line for each income)</html>");
 	      selectedFileLabel = new JLabel("Selected file:");
 
 	      selectedFileField = new JTextField(20);
@@ -105,8 +105,8 @@ public class GuiFile extends JFrame implements ActionListener{
 	      FileInputStream fileByteStream = null; // File input stream
 	      Scanner inFS = null; 					// Scanner object
 	     // String readLine;                       // Input from file
-	      String expenseLine;
-	      String [] expArr;
+	      String incomeLine;
+	      String [] incArr;
 	      String type = null;
 	      double amount = 0;
 	      int month = 0;
@@ -142,27 +142,26 @@ public class GuiFile extends JFrame implements ActionListener{
 	               inFS = new Scanner(new FileInputStream(readFile));
 	               
 	               //int lineCount = Files.lines(inFS).count();
-	               arr = new Expense[lineCount];
+	               arr = new Income[lineCount];
 	               // Clear output area
 	               outputArea.setText(""); 
 
 	               // Read until end-of-file
 	               while (inFS.hasNext()) {
 	            	  //trial = inFS.useDelimiter(":").next();
-	            	  expenseLine = inFS.next();
-	            	  expArr = expenseLine.split(":");
-	            	  for (int i = 0; i < expArr.length; i+=3) {
-	            		  type = expArr[i];
+	            	  incomeLine = inFS.next();
+	            	  incArr = incomeLine.split(":");
+	            	  for (int i = 0; i < incArr.length; i+=3) {
+	            		  type = incArr[i];
 	            	  	}
-	            	  for (int i = 1; i < expArr.length; i+=3) {
-		            	  amount = Double.parseDouble(expArr[i]);
+	            	  for (int i = 1; i < incArr.length; i+=3) {
+		            	  amount = Double.parseDouble(incArr[i]);
 		            	  }
-	            	  for (int i = 2; i < expArr.length; i+=3) {
-		            	  month = Integer.parseInt(expArr[i]);
+	            	  for (int i = 2; i < incArr.length; i+=3) {
+		            	  month = Integer.parseInt(incArr[i]);
 		            	  }
-	            	  //expense = new Expense(type, amount, month);
-	            	 arr[j] = new Expense(type, amount, (month - 1));
-	            	 arrList.add(new Expense(type, amount, (month - 1)));
+	            	 arr[j] = new Income(type, amount, (month - 1));
+	            	 arrList.add(new Income(type, amount, (month - 1)));
 	            	// System.out.println(arr[j]);
 	            	// System.out.println(arrList);
 	            	//list.set(arr[j], j);//FIXME
@@ -174,7 +173,7 @@ public class GuiFile extends JFrame implements ActionListener{
 	               //for ( int k = 0; k < arr.length; k++) {
 	            	//   System.out.println(arr[k]);
 	               //}
-	               Expense [] array = getExpenseArr();
+	               Income [] array = getIncomeArr();
 	               for (int o = 0; o < array.length; o++) {//Use arr[] instead???
 	               outputArea.append(array[o] + "\n");
 	              // System.out.println(list);
@@ -200,13 +199,13 @@ public class GuiFile extends JFrame implements ActionListener{
 	      
 	   }
 	   
-	   public static ArrayList<Expense> getExpenseList(){
+	   public static ArrayList<Income> getIncomeList(){
 		   
 		   return arrList;
 		   
 	   }
 	   
-	   public Expense [] getExpenseArr() {
+	   public Income [] getIncomeArr() {
 		  
 		  return arr;
 		   
